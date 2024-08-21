@@ -33,10 +33,16 @@ public class ModularPlayerController : PlayerControllerBase
         InputManager.Instance.OnCrouch -= Crouch;
     }
 
+    private void Start()
+    {
+        currentSpeed = walkSpeed;
+    }
+
     public override void Move(Vector2 input)
     {
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
+        Debug.Log("Move() is executed");
     }
 
     public override void Look(Vector2 input)
