@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class PlayerControllerBase : MonoBehaviour, IMovable, ICameraControllable, IJumper, ISprinter, ICroucher
 {
     protected CharacterController controller;
+
     [Tooltip("Stores the character's velocity which is used for gravity and other forces")]
     protected Vector3 velocity;
     protected bool isGrounded;
