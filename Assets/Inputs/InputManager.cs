@@ -12,6 +12,18 @@ public class InputManager : MonoBehaviour
     public event Action<bool> OnSprint; //Triggered when the sprint input is pressed or released
     public event Action OnCrouch; //Triggered when the crouch input is recieved
 
+    private Vector2 moveInput; //Stores the current mvoement input
+
+    private void OnEnable()
+    {
+        InputActions.Player.Enable();
+    }
+
+    private void OnDisable()
+    {
+        InputActions.Player.Disable();
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,7 +32,8 @@ public class InputManager : MonoBehaviour
             DontDestroyOnLoad(gameObject); //Ensures that this GameObject persists across scene loads
             InputActions = new PlayerInputActions();
 
-            InputActions.Player.Move.performed += ctx => OnMove?.Invoke(ctx.ReadValue<Vector2>());
+            InputActions.Player.Move.performed += ctx => SetMoveInput(ctx.ReadValue<Vector2>());
+            InputActions.Player.Move.canceled += ctx => SetMoveInput(Vector2.zero);
             InputActions.Player.Look.performed += ctx => OnLook?.Invoke(ctx.ReadValue<Vector2>());
             InputActions.Player.Jump.performed += ctx => OnJump?.Invoke();
             InputActions.Player.Sprint.performed += ctx => OnSprint?.Invoke(true);
@@ -33,13 +46,14 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        InputActions.Player.Enable();
+        if (moveInput != Vector2.zero)
+            OnMove?.Invoke(moveInput);
     }
 
-    private void OnDisable()
+    private void SetMoveInput(Vector2 input)
     {
-        InputActions.Player.Disable();
+        moveInput = input;
     }
 }
