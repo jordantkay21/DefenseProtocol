@@ -42,7 +42,6 @@ public class ModularPlayerController : PlayerControllerBase
     {
         Vector3 move = transform.right * input.x + transform.forward * input.y;
         controller.Move(move * currentSpeed * Time.deltaTime);
-        Debug.Log("Move() is executed");
     }
 
     public override void Look(Vector2 input)
