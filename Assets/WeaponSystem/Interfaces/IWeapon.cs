@@ -13,5 +13,5 @@ public interface IWeapon
     /// <summary>
     /// Checks whether the weapon is ready to fire. Used to prevent firing when the weapon is not ready.
     /// </summary>
-    void CanFire();
+    bool CanFire();
 }
