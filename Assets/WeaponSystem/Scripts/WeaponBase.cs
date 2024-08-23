@@ -4,7 +4,7 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon
 {
     //Shared Ammo Management
     [Header("Ammo Settings")]
-    [SerializeField] protected float bulletSpeed = 1000f;
+    [SerializeField] protected float bulletSpeed;
     [SerializeField] protected int currentAmmo;
     [SerializeField] protected int maxAmmo;
     [SerializeField] protected int reserveAmmo;
