@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
     public event Action OnJump; //Triggered when jump input is recieved
     public event Action<bool> OnSprint; //Triggered when the sprint input is pressed or released
     public event Action OnCrouch; //Triggered when the crouch input is recieved
+    public event Action OnFire; //Triggered when the Fire input is recieved
+    public event Action OnReload; //Triggered when the reload input is recieved
 
     private Vector2 moveInput; //Stores the current mvoement input
 
@@ -39,6 +41,8 @@ public class InputManager : MonoBehaviour
             InputActions.Player.Sprint.performed += ctx => OnSprint?.Invoke(true);
             InputActions.Player.Sprint.canceled += ctx => OnSprint?.Invoke(false);
             InputActions.Player.Crouch.performed += ctx => OnCrouch?.Invoke();
+            InputActions.Player.Fire.performed += ctx => OnFire?.Invoke();
+            InputActions.Player.Reload.performed += ctx => OnReload?.Invoke();
         }
         else
         {

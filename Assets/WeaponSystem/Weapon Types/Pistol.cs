@@ -19,20 +19,31 @@ public class Pistol : WeaponBase
                     Random.Range(-_bulletSpread, _bulletSpread),
                     0);
 
-                GameObject bullet = Instantiate(_bulletPrefab, _muzzleTransform.position, _muzzleTransform.rotation);
-                bullet.transform.forward = _muzzleTransform.forward + spread;
+                effectManager?.PlayMuzzleFlash(_muzzleTransform);
+                effectManager?.PlayGunfireSound();
 
-                Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                if (rb != null)
-                    rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
+                //GameObject bullet = Instantiate(_bulletPrefab, _muzzleTransform.position, _muzzleTransform.rotation);
+                //bullet.transform.forward = _muzzleTransform.forward + spread;
+
+                //Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                //if (rb != null)
+                //    rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
+
+                Vector3 targetPosition = _muzzleTransform.position + _muzzleTransform.forward * 100f;
+                effectManager?.PlayBulletTracer(targetPosition);
             }
 
             HandleAmmoConsumption();
+        }
+        else
+        {
+            PlayEmptyClick();
         }
     }
 
     public override void Reload()
     {
         HandleReloading();
+        effectManager?.PlayReloadSound();
     }
 }

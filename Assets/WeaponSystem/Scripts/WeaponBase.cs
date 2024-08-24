@@ -17,10 +17,21 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon
     protected bool isReloading = false;
     protected float nextTimeToFire = 0f;
 
+    protected WeaponEffect effectManager;
+
+    void Awake()
+    {
+        effectManager = GetComponent<WeaponEffect>();
+    }
 
     public abstract void Fire();
     public abstract void Reload();
-     
+
+    protected void PlayEmptyClick()
+    {
+        effectManager?.PlayEmptyClickSound();
+    }
+    
     public bool CanFire()
     {
         return !isReloading && currentAmmo > 0 && Time.time >= nextTimeToFire;
