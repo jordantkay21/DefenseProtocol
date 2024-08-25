@@ -26,11 +26,6 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon
 
     public abstract void Fire();
     public abstract void Reload();
-
-    protected void PlayEmptyClick()
-    {
-        effectManager?.PlayEmptyClickSound();
-    }
     
     public bool CanFire()
     {

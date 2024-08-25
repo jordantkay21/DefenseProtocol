@@ -1,10 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class WeaponEffect : MonoBehaviour
 {
     [Header("Visual Effects")]
     [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] ParticleSystem bulletTracer;
 
     [Header("Audio Effects")]
     [SerializeField] AudioClip gunfireSound;
@@ -15,7 +15,7 @@ public class WeaponEffect : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     public void PlayMuzzleFlash(Transform muzzleTransform)
@@ -23,15 +23,6 @@ public class WeaponEffect : MonoBehaviour
         if (muzzleFlash != null)
         {
             muzzleFlash.Play();
-        }
-    }
-
-    public void PlayBulletTracer(Vector3 targetPosition)
-    {
-        if(bulletTracer != null)
-        {
-            bulletTracer.transform.LookAt(targetPosition);
-            bulletTracer.Play();
         }
     }
 

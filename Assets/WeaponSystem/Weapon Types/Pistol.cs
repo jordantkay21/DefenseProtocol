@@ -22,22 +22,20 @@ public class Pistol : WeaponBase
                 effectManager?.PlayMuzzleFlash(_muzzleTransform);
                 effectManager?.PlayGunfireSound();
 
-                //GameObject bullet = Instantiate(_bulletPrefab, _muzzleTransform.position, _muzzleTransform.rotation);
-                //bullet.transform.forward = _muzzleTransform.forward + spread;
+                GameObject bullet = Instantiate(_bulletPrefab, _muzzleTransform.position, _muzzleTransform.rotation);
+                bullet.transform.forward = _muzzleTransform.forward + spread;
 
-                //Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                //if (rb != null)
-                //    rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                if (rb != null)
+                    rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
 
-                Vector3 targetPosition = _muzzleTransform.position + _muzzleTransform.forward * 100f;
-                effectManager?.PlayBulletTracer(targetPosition);
             }
 
             HandleAmmoConsumption();
         }
         else
         {
-            PlayEmptyClick();
+            effectManager?.PlayEmptyClickSound();
         }
     }
 
