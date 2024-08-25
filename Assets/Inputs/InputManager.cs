@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     public event Action OnCrouch; //Triggered when the crouch input is recieved
     public event Action OnFire; //Triggered when the Fire input is recieved
     public event Action OnReload; //Triggered when the reload input is recieved
+    public event Action OnInteract; //Triggered when the interact input is recieved
 
     private Vector2 moveInput; //Stores the current mvoement input
 
@@ -43,6 +44,7 @@ public class InputManager : MonoBehaviour
             InputActions.Player.Crouch.performed += ctx => OnCrouch?.Invoke();
             InputActions.Player.Fire.performed += ctx => OnFire?.Invoke();
             InputActions.Player.Reload.performed += ctx => OnReload?.Invoke();
+            InputActions.Player.Interact.performed += ctx => OnInteract?.Invoke();
         }
         else
         {

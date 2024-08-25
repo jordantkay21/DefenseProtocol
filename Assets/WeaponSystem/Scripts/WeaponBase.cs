@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class WeaponBase : MonoBehaviour, IWeapon
+public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 {
     //Shared Ammo Management
     [Header("Ammo Settings")]
@@ -59,5 +59,10 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon
         reserveAmmo -= ammoToLoad;
 
         isReloading = false;
+    }
+
+    public void Interact()
+    {
+        WeaponManager.Instance.PickupWeapon(this);
     }
 }
