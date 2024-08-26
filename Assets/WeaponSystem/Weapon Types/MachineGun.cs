@@ -6,7 +6,7 @@ public class MachineGun : WeaponBase
     [SerializeField] float _bulletSpread = 0.05f;
     [SerializeField] int _bulletsPerShot = 1;
     [SerializeField] GameObject _bulletPrefab;
-    [SerializeField] Transform muzzleTransform;
+
 
     private bool isFiring = false;
 

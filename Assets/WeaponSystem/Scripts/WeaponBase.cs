@@ -4,6 +4,7 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 {
     [Header("Mount Point")]
     public Vector3 weaponMountOffset;
+    public Transform muzzleTransform;
 
     //Shared Ammo Management
     [Header("Ammo Settings")]

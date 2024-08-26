@@ -6,7 +6,6 @@ public class Pistol : WeaponBase
     [SerializeField] float _bulletSpread = 0.02f;
     [SerializeField] int _bulletsPerShot = 1;
     [SerializeField] GameObject _bulletPrefab;
-    [SerializeField] Transform _muzzleTransform;
 
     public override void Fire()
     {
@@ -19,11 +18,11 @@ public class Pistol : WeaponBase
                     Random.Range(-_bulletSpread, _bulletSpread),
                     0);
 
-                effectManager?.PlayMuzzleFlash(_muzzleTransform);
+                effectManager?.PlayMuzzleFlash(muzzleTransform);
                 effectManager?.PlayGunfireSound();
 
-                GameObject bullet = Instantiate(_bulletPrefab, _muzzleTransform.position, _muzzleTransform.rotation);
-                bullet.transform.forward = _muzzleTransform.forward + spread;
+                GameObject bullet = Instantiate(_bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
+                bullet.transform.forward = muzzleTransform.forward + spread;
 
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 if (rb != null)
