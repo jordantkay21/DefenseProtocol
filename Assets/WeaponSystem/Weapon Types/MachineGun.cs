@@ -5,22 +5,31 @@ public class MachineGun : WeaponBase
     [Header("Machine Gun Settings")]
     [SerializeField] float _bulletSpread = 0.05f;
     [SerializeField] int _bulletsPerShot = 1;
-    [SerializeField] float _fireRate = 0.1f;
     [SerializeField] GameObject _bulletPrefab;
     [SerializeField] Transform muzzleTransform;
 
-    private float nextFireTime;
+    private bool isFiring = false;
 
+    private void Update()
+    {
+        //Handle continous fire if the fire button is held down
+        if (isFiring && CanFire())
+            Fire();
+    }
     public override void Fire()
     {
-        if(CanFire() && Time.time >= nextFireTime)
+        if(CanFire())
         {
             for (int i = 0; i < _bulletsPerShot; i++)
             {
+                //Calculate bullet spread
                 Vector3 spread = new Vector3(
                     Random.Range(-_bulletSpread, _bulletSpread),
                     Random.Range(-_bulletSpread, _bulletSpread),
                     0);
+
+                effectManager?.PlayMuzzleFlash(muzzleTransform);
+                effectManager?.PlayGunfireSound();
 
                 GameObject bullet = Instantiate(_bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
                 bullet.transform.forward = muzzleTransform.forward + spread;
@@ -32,10 +41,31 @@ public class MachineGun : WeaponBase
 
             HandleAmmoConsumption();
         }
+        else
+        {
+            effectManager?.PlayEmptyClickSound();
+        }
     }
 
     public override void Reload()
     {
         HandleReloading();
+        effectManager?.PlayReloadSound();
+    }
+
+    /// <summary>
+    /// Start firing when the fire button is pressed
+    /// </summary>
+    public void StartFiring()
+    {
+        isFiring = true;
+    }
+
+    /// <summary>
+    /// Stop firing when the fire button is released
+    /// </summary>
+    public void StopFiring()
+    {
+        isFiring = false;
     }
 }

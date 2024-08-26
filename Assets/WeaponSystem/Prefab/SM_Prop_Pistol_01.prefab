@@ -128,7 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32931bb1f617c3b41b0c2c01d4909514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 100
+  weaponMountOffset: {x: 0, y: 0, z: 0.785}
+  bulletSpeed: 1000
   currentAmmo: 15
   maxAmmo: 15
   reserveAmmo: 60
@@ -150,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4bc958ebd4d3342a7289fdd758e8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzleFlash: {fileID: 2685981680171596600, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+  muzzleFlash: {fileID: 4839320495795309174}
   gunfireSound: {fileID: 0}
   reloadSound: {fileID: 0}
   emptyClipSound: {fileID: 0}
@@ -279,7 +280,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.0605, z: 0.2257}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5502119283510070350}
   m_Father: {fileID: 9165381497311379473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8676646917701268993
@@ -540,3 +542,70 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &7380905294876913998
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1822209772916238222}
+    m_Modifications:
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5308511634142705771, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+      propertyPath: m_Name
+      value: FX_Gunshot_01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+--- !u!198 &4839320495795309174 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2685981680171596600, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+  m_PrefabInstance: {fileID: 7380905294876913998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5502119283510070350 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3041418576079748352, guid: 33081a73d4fd9264f8764208a7db937a, type: 3}
+  m_PrefabInstance: {fileID: 7380905294876913998}
+  m_PrefabAsset: {fileID: 0}

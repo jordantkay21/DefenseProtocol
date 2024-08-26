@@ -8,12 +8,14 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] WeaponBase initialWeapon;
 
     private WeaponBase equippedWeapon;
+    private WeaponHolder weaponHolder;
 
     private void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
+            weaponHolder = GetComponent<WeaponHolder>();
         }
         else
         {
@@ -24,6 +26,9 @@ public class WeaponManager : MonoBehaviour
     {
         InputManager.Instance.OnFire += HandleFire;
         InputManager.Instance.OnReload += HandleReload;
+
+        InputManager.Instance.InputActions.Player.Fire.performed += ctx => StartFiring();
+        InputManager.Instance.InputActions.Player.Fire.canceled += ctx => StopFiring();
     }
 
     private void Start()
@@ -31,9 +36,23 @@ public class WeaponManager : MonoBehaviour
         equippedWeapon = initialWeapon;   
     }
 
+    private void StartFiring()
+    {
+        if (equippedWeapon is MachineGun machineGun)
+            machineGun.StartFiring();
+        else
+            HandleFire();
+    }
+
     private void HandleFire()
     {
         equippedWeapon?.Fire();
+    }
+
+    private void StopFiring()
+    {
+        if (equippedWeapon is MachineGun machineGun)
+            machineGun.StopFiring();
     }
 
     private void HandleReload()
@@ -49,7 +68,7 @@ public class WeaponManager : MonoBehaviour
         }
 
         equippedWeapon = newWeapon;
-        //Call Equip Method
+        weaponHolder.EquipWeapon(equippedWeapon);
 
         //Call an event once eventManager is configured to notify other systems that a weapon has been picked up
     }
@@ -57,7 +76,7 @@ public class WeaponManager : MonoBehaviour
     private void DropWeapon()
     {
         //Logic to drop the equipped weapon
-        Destroy(equippedWeapon.gameObject);
+        weaponHolder.UnequipWeapon();
         equippedWeapon = null;
     }
 }

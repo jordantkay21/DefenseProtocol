@@ -19,8 +19,6 @@ public class InteractionManager : MonoBehaviour
         lineRenderer.positionCount = 2;
         lineRenderer.startWidth = 0.02f;
         lineRenderer.endWidth = 0.02f;
-        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
-        lineRenderer.material.color = Color.green;
         
     }
 

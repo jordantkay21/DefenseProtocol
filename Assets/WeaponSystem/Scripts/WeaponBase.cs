@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 {
+    [Header("Mount Point")]
+    public Vector3 weaponMountOffset;
+
     //Shared Ammo Management
     [Header("Ammo Settings")]
     [SerializeField] protected float bulletSpeed;
