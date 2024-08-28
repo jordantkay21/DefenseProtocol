@@ -2,9 +2,10 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 {
-    [Header("Mount Point")]
+    [Header("Weapon Configuration")]
     public Vector3 weaponMountOffset;
     public Transform muzzleTransform;
+    public bool showRaycast = true;
 
     //Shared Ammo Management
     [Header("Ammo Settings")]
@@ -22,6 +23,8 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     protected float nextTimeToFire = 0f;
 
     protected WeaponEffect effectManager;
+    protected Ray weaponRaycast;
+    protected RaycastHit hitInfo;
 
     void Awake()
     {
@@ -68,5 +71,10 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     public void Interact()
     {
         WeaponManager.Instance.PickupWeapon(this);
+    }
+
+    public void UpdateWeaponRaycast()
+    {
+        weaponRaycast = Raycasthandler.Instance.CreateRay(muzzleTransform.position, WeaponManager.Instance.GetCrosshairTarget().transform.position);
     }
 }

@@ -6,6 +6,7 @@ public class WeaponManager : MonoBehaviour
     public static WeaponManager Instance { get; private set; }
 
     [SerializeField] WeaponBase initialWeapon;
+    [SerializeField] Transform crosshairTarget;
 
     private WeaponBase equippedWeapon;
     private WeaponHolder weaponHolder;
@@ -34,6 +35,20 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         equippedWeapon = initialWeapon;   
+    }
+
+    private void Update()
+    {
+        if (equippedWeapon != null && equippedWeapon.showRaycast)
+        {
+            equippedWeapon.UpdateWeaponRaycast();
+        }
+    
+    }
+
+    public Transform GetCrosshairTarget()
+    {
+        return crosshairTarget;
     }
 
     private void StartFiring()

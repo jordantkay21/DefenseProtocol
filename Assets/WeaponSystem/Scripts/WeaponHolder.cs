@@ -18,6 +18,7 @@ public class WeaponHolder : MonoBehaviour
             UnequipWeapon();
 
         equippedWeapon = newWeapon;
+        equippedWeapon.showRaycast = true;
         AttachWeapon(newWeapon);
     }
 
@@ -34,6 +35,7 @@ public class WeaponHolder : MonoBehaviour
     {
         if (equippedWeapon != null)
         {
+            equippedWeapon.showRaycast = false;
             equippedWeapon.transform.SetParent(null); //Detach from player
             equippedWeapon = null;
         }
