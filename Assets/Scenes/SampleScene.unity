@@ -755,6 +755,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5608864963755489748, guid: 4824b2c16a6d15646a4dd7ee93368aba, type: 3}
     - target: {fileID: 3523601900252511535, guid: 14ad16fd56e08284db891ecf0176ac5b, type: 3}
+      propertyPath: _bulletSpread
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3523601900252511535, guid: 14ad16fd56e08284db891ecf0176ac5b, type: 3}
       propertyPath: muzzleTransform
       value: 
       objectReference: {fileID: 1822209773715466470}
