@@ -4,9 +4,7 @@ using UnityEngine;
 public class Raycasthandler : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    private Vector3 _origin;
     private Vector3 _target;
-    private Vector3 _direction;
     private Ray _ray;
 
     private void Awake()
@@ -23,22 +21,23 @@ public class Raycasthandler : MonoBehaviour
             lineRenderer.positionCount = 2;
             lineRenderer.startWidth = 0.02f;
             lineRenderer.endWidth = 0.02f;
-            lineRenderer.enabled = false;
         }
     }
 
-    public void CreateRay(Vector3 origin, Vector3 target)
+    public Ray CreateRay(Vector3 origin, Vector3 target)
     {
-        _origin = origin;
+        _ray.origin = origin;
         _target = target;
-        _direction = (_target - _origin).normalized;
-        _ray = new Ray(origin, _direction);
+        _ray.direction = (target - origin).normalized;
 
         DrawRay();
+        return _ray;
     }
 
     private void DrawRay()
     {
-        Debug.DrawRay(_ray.origin, _ray.direction * Vector3.Distance(_origin, _target), Color.red);
+        lineRenderer.SetPosition(0, _ray.origin);
+        Debug.DrawRay(_ray.origin, _ray.direction * Vector3.Distance(_ray.origin, _target), Color.red);
+        lineRenderer.SetPosition(1, _target);
     }
 }

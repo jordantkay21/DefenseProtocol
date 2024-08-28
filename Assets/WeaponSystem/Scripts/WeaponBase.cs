@@ -5,7 +5,6 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     [Header("Weapon Configuration")]
     public Vector3 weaponMountOffset;
     public Transform muzzleTransform;
-    public Transform crosshairTarget;
     public bool showRaycast = true;
 
     //Shared Ammo Management
@@ -25,6 +24,8 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 
     protected WeaponEffect effectManager;
     protected Raycasthandler raycastHandler;
+    protected Ray weaponRaycast;
+    protected RaycastHit hitInfo;
 
     void Awake()
     {
@@ -76,6 +77,6 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 
     public void UpdateWeaponRaycast()
     {
-        raycastHandler.CreateRay(muzzleTransform.position, WeaponManager.Instance.GetCrosshairTarget().transform.position);
+        weaponRaycast = raycastHandler.CreateRay(muzzleTransform.position, WeaponManager.Instance.GetCrosshairTarget().transform.position);
     }
 }
