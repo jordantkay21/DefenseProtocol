@@ -23,14 +23,12 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     protected float nextTimeToFire = 0f;
 
     protected WeaponEffect effectManager;
-    protected Raycasthandler raycastHandler;
     protected Ray weaponRaycast;
     protected RaycastHit hitInfo;
 
     void Awake()
     {
         effectManager = GetComponent<WeaponEffect>();
-        raycastHandler = GetComponent<Raycasthandler>();
     }
 
     public abstract void Fire();
@@ -77,6 +75,6 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 
     public void UpdateWeaponRaycast()
     {
-        weaponRaycast = raycastHandler.CreateRay(muzzleTransform.position, WeaponManager.Instance.GetCrosshairTarget().transform.position);
+        weaponRaycast = Raycasthandler.Instance.CreateRay(muzzleTransform.position, WeaponManager.Instance.GetCrosshairTarget().transform.position);
     }
 }

@@ -3,15 +3,20 @@ using UnityEngine;
 [RequireComponent(typeof(LineRenderer))]
 public class Raycasthandler : MonoBehaviour
 {
+    public static Raycasthandler Instance { get; private set; }
+
     private LineRenderer lineRenderer;
     private Vector3 _target;
     private Ray _ray;
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
         lineRenderer = GetComponent<LineRenderer>();
         ConfigureLineRenderer();
-
     }
 
     private void ConfigureLineRenderer()
