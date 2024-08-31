@@ -6,12 +6,6 @@ public class WeaponHolder : MonoBehaviour
     
     [SerializeField] WeaponBase equippedWeapon;
 
-    //private void Update()
-    //{
-    //    if (equippedWeapon != null)
-    //        equippedWeaponTransform.rotation = Camera.main.transform.rotation;
-    //}
-
     public void EquipWeapon(WeaponBase newWeapon)
     {
         if (equippedWeapon != null)
@@ -24,8 +18,6 @@ public class WeaponHolder : MonoBehaviour
 
     private void AttachWeapon(WeaponBase weapon)
     {
-        //equippedWeaponTransform.transform.position += weapon.weaponMountOffset;
-
         weapon.transform.SetParent(equippedWeaponTransform);
         weapon.transform.localPosition = weapon.weaponMountOffset;
         weapon.transform.localRotation = Quaternion.identity; //Reset rotation

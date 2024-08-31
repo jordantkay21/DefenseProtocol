@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -11,11 +12,30 @@ public class WeaponEffect : MonoBehaviour
     [SerializeField] AudioClip reloadSound;
     [SerializeField] AudioClip emptyClipSound;
 
+    //Event Managers
+    EventManager weaponEvents;
+
     AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void OnEnable()
+    {
+        weaponEvents = GameManager.Instance.WeaponEvents;
+        weaponEvents.Subscribe<BulletHitEvent>(ImpactEffect);
+    }
+
+    private void OnDisable()
+    {
+        weaponEvents.Unsubscribe<BulletHitEvent>(ImpactEffect);
+    }
+
+    private void ImpactEffect(BulletHitEvent obj)
+    {
+        DebugUtility.Log(DebugTag.Bullet, $"Impact Effect method executed");
     }
 
     public void PlayMuzzleFlash(Transform muzzleTransform)
@@ -49,4 +69,6 @@ public class WeaponEffect : MonoBehaviour
             audioSource.PlayOneShot(emptyClipSound);
         }
     }
+
+
 }

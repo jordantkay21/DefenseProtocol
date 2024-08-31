@@ -15,6 +15,7 @@ public enum DebugTag
     InteractionSystem = 1 << 1,
     WeaponSystem = 1 << 2,
     Pistol = 1 << 3,
+    Bullet = 1 << 4,
     All = ~0 // This enables all flags
 }
 

@@ -2,101 +2,49 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class PistolFiredEvent
-{
-    public int RemainingAmmo { get; }
-
-    public PistolFiredEvent()
-    {
-
-    }
-    public PistolFiredEvent(int remainingAmmo)
-    {
-        RemainingAmmo = remainingAmmo;
-    }
-}
-
 public class Pistol : WeaponBase
 {
     [Header("Pistol Settings")]
-    [SerializeField] float _bulletSpread = 0.02f;
+    [SerializeField] float _range;
     [SerializeField] int _bulletsPerShot = 1;
-    [SerializeField] GameObject _bulletPrefab;
-    [SerializeField] float bulletTravelTime = 0.1f; //Time it takes for the bullet to reach destination
 
     public override void Fire()
     {
-        
         if (CanFire())
         {
-            for (int i =0; i<_bulletsPerShot; i++)
-            {
-               Vector3 spread = new Vector3(
-                    UnityEngine.Random.Range(-_bulletSpread, _bulletSpread),
-                    UnityEngine.Random.Range(-_bulletSpread, _bulletSpread),
-                    0);
-
-                effectManager?.PlayMuzzleFlash(muzzleTransform);
-                effectManager?.PlayGunfireSound();
-
-                GameObject bullet = Instantiate(_bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
-
-                if (Physics.Raycast(weaponRaycast.origin, weaponRaycast.direction, out hitInfo))
-                {
-                    StartCoroutine(SimulateBullet(bullet, hitInfo.point + spread));
-                }
-                else
-                {
-                    StartCoroutine(SimulateBullet(bullet, WeaponManager.Instance.GetCrosshairTarget().position + spread));
-                }
-
-                //Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                //if (rb != null)
-                //    rb.AddForce(bullet.transform.forward * bulletSpeed, ForceMode.Impulse);
-
-            }
-
             HandleAmmoConsumption();
-            eventManager.Publish<PistolFiredEvent>(new PistolFiredEvent(currentAmmo));
-        }
-        else
-        {
-            effectManager?.PlayEmptyClickSound();
+
+            Vector3 origin = muzzleTransform.position;
+            Vector3 direction = muzzleTransform.forward;
+            RaycastHit hit;
+            Vector3 hitPoint = origin + direction * _range; //default point if no hit occurs
+
+            if (Physics.Raycast(origin, direction, out hit, _range))
+            {
+                hitPoint = hit.point;
+
+                //Instantiate and initialize the bullet
+                BulletBase newBullet = Instantiate(bulletPrefab, origin, Quaternion.LookRotation(direction));
+                newBullet.Initialize(bulletSpeed, bulletDamage);
+
+                //Move the bullet to the hit point
+                newBullet.MoveBulletToHitPoint(hitPoint);
+
+                //Handle the hit logic within the bullet class
+                newBullet.OnHit(hit);
+            }
+            else
+            {
+                // no hit occured, but bullet should still move to a distant point
+                BulletBase newBullet = Instantiate(bulletPrefab, origin, Quaternion.LookRotation(direction));
+                newBullet.Initialize(bulletSpeed, bulletDamage);
+                newBullet.MoveBulletToHitPoint(hitPoint);
+            }
         }
     }
-
-    private IEnumerator SimulateBullet(GameObject bullet, Vector3 targetPoint)
-    {
-        float elapsedTime = 0f;
-        Vector3 startPos = bullet.transform.position;
-
-        while (elapsedTime < bulletTravelTime)
-        {
-            elapsedTime += Time.deltaTime;
-            bullet.transform.position = Vector3.Lerp(startPos, targetPoint, elapsedTime/bulletTravelTime);
-            yield return null;
-        }
-
-        //Ensure the bullet reaches the exact target point
-        bullet.transform.position = targetPoint;
-
-        //Handle bullet impact (destroy the bullet, play impact effects, etc.)
-        HandleBulletImpact(bullet, targetPoint);
-
-    }
-
-    private void HandleBulletImpact(GameObject bullet, Vector3 impactPoint)
-    {
-        //Example: Destroy the bullet after it reaches the target
-        Destroy(bullet);
-
-        //Play impact effects here if needed
-        Debug.Log($"Bullet hit at: {impactPoint}");
-    }
-
     public override void Reload()
     {
         HandleReloading();
-        effectManager?.PlayReloadSound();
     }
+
 }

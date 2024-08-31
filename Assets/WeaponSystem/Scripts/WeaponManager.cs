@@ -5,7 +5,6 @@ public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance { get; private set; }
 
-    [SerializeField] WeaponBase initialWeapon;
     [SerializeField] Transform crosshairTarget;
 
     private WeaponBase equippedWeapon;
@@ -29,14 +28,11 @@ public class WeaponManager : MonoBehaviour
     {
         InputManager.Instance.OnFire += HandleFire;
         InputManager.Instance.OnReload += HandleReload;
-
-        InputManager.Instance.InputActions.Player.Fire.performed += ctx => StartFiring();
-        InputManager.Instance.InputActions.Player.Fire.canceled += ctx => StopFiring();
     }
-
-    private void Start()
+    private void OnDisable()
     {
-        equippedWeapon = initialWeapon;   
+        InputManager.Instance.OnFire -= HandleFire;
+        InputManager.Instance.OnReload -= HandleReload;
     }
 
     private void Update()
@@ -48,28 +44,9 @@ public class WeaponManager : MonoBehaviour
     
     }
 
-    public Transform GetCrosshairTarget()
-    {
-        return crosshairTarget;
-    }
-
-    private void StartFiring()
-    {
-        if (equippedWeapon is MachineGun machineGun)
-            machineGun.StartFiring();
-        else
-            HandleFire();
-    }
-
     private void HandleFire()
     {
         equippedWeapon?.Fire();
-    }
-
-    private void StopFiring()
-    {
-        if (equippedWeapon is MachineGun machineGun)
-            machineGun.StopFiring();
     }
 
     private void HandleReload()
@@ -79,9 +56,10 @@ public class WeaponManager : MonoBehaviour
 
     public void PickupWeapon(WeaponBase newWeapon)
     {
+        //Unequip current weapon, if applicable
         if(equippedWeapon != null)
         {
-            DropWeapon();
+            weaponHolder.UnequipWeapon();
         }
 
         equippedWeapon = newWeapon;
@@ -91,10 +69,4 @@ public class WeaponManager : MonoBehaviour
         weaponEvents.Publish(new NewWeaponEvent(equippedWeapon));
     }
 
-    private void DropWeapon()
-    {
-        //Logic to drop the equipped weapon
-        weaponHolder.UnequipWeapon();
-        equippedWeapon = null;
-    }
 }

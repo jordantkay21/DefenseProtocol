@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    //Singleton instance
+    public static GameManager Instance { get; private set; }
+
     [Header("Debug Tools")]
-    [SerializeField] bool isDebugMode;
-    
+    [SerializeField] bool isDebugMode;    
     //This will show a mask field in the Inspector where you can select multiple DebugTags
     [EnumFlags]
     public DebugTag enabledDebugTags;
 
-    //Singleton instance
-    public static GameManager Instance { get; private set; }
+    [Header("Game Configuration")]
+    [SerializeField] Transform crosshairTarget;
+
     
     //The single instance of EventManager for weapons
     public EventManager WeaponEvents{ get; private set; }
@@ -67,5 +70,10 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    public Transform GetCrosshairTarget()
+    {
+        return crosshairTarget;
     }
 }
