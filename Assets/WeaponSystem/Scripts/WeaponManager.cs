@@ -1,6 +1,16 @@
 using System;
 using UnityEngine;
 
+public class NewWeaponEvent
+{
+    public WeaponBase NewWeapon { get; }
+
+    public NewWeaponEvent(WeaponBase newWeapon)
+    {
+        NewWeapon = newWeapon;
+    }
+}
+
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance { get; private set; }
@@ -10,6 +20,7 @@ public class WeaponManager : MonoBehaviour
 
     private WeaponBase equippedWeapon;
     private WeaponHolder weaponHolder;
+    private EventManager weaponEvents;
 
     private void Awake()
     {
@@ -17,6 +28,7 @@ public class WeaponManager : MonoBehaviour
         {
             Instance = this;
             weaponHolder = GetComponent<WeaponHolder>();
+            weaponEvents = GameManager.Instance.WeaponEvents;
         }
         else
         {
@@ -86,6 +98,8 @@ public class WeaponManager : MonoBehaviour
         weaponHolder.EquipWeapon(equippedWeapon);
 
         //Call an event once eventManager is configured to notify other systems that a weapon has been picked up
+        weaponEvents.Publish(new NewWeaponEvent(equippedWeapon));
+        Debug.Log("NewWeaponEvent should be published.");
     }
 
     private void DropWeapon()

@@ -2,6 +2,20 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+public class PistolFiredEvent
+{
+    public int RemainingAmmo { get; }
+
+    public PistolFiredEvent()
+    {
+
+    }
+    public PistolFiredEvent(int remainingAmmo)
+    {
+        RemainingAmmo = remainingAmmo;
+    }
+}
+
 public class Pistol : WeaponBase
 {
     [Header("Pistol Settings")]
@@ -12,6 +26,7 @@ public class Pistol : WeaponBase
 
     public override void Fire()
     {
+        
         if (CanFire())
         {
             for (int i =0; i<_bulletsPerShot; i++)
@@ -42,6 +57,7 @@ public class Pistol : WeaponBase
             }
 
             HandleAmmoConsumption();
+            eventManager.Publish<PistolFiredEvent>(new PistolFiredEvent(currentAmmo));
         }
         else
         {

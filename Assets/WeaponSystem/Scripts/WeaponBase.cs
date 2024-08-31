@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
@@ -23,8 +24,11 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     protected float nextTimeToFire = 0f;
 
     protected WeaponEffect effectManager;
+    protected EventManager eventManager = new EventManager();
     protected Ray weaponRaycast;
     protected RaycastHit hitInfo;
+
+    
 
     void Awake()
     {

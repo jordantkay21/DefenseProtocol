@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class InteractionManager : MonoBehaviour
+public class InteractionManager : MonoBehaviour, IEventListener<NewWeaponEvent>
 {
     [SerializeField] float interactionRange = 2f;
     [SerializeField] Transform crossHairTarget;
@@ -10,16 +10,24 @@ public class InteractionManager : MonoBehaviour
 
     private IInteractable currentInteractable;
     private RaycastHit hitInfo;
+    private WeaponBase equippedWeapon;
+    protected EventManager weaponEvents;
 
-
+    private void Awake()
+    {
+        weaponEvents = GameManager.Instance.WeaponEvents;
+    }
     private void OnEnable()
     {
         InputManager.Instance.OnInteract += HandleInteract;
+        weaponEvents.Subscribe<NewWeaponEvent>(OnEvent);
+        Debug.Log($"OnEvent() is subscribed to newWeaponEvent");
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnInteract -= HandleInteract;
+        weaponEvents.Unsubscribe<NewWeaponEvent>(OnEvent);
     }
 
     private void Update()
@@ -58,5 +66,11 @@ public class InteractionManager : MonoBehaviour
         {
             currentInteractable.Interact();
         }
+    }
+
+    public void OnEvent(NewWeaponEvent eventArgs)
+    {
+            equippedWeapon = eventArgs.NewWeapon;
+            Debug.Log($"New Weapon was picked up: {equippedWeapon}");
     }
 }
