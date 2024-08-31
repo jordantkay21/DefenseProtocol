@@ -1,16 +1,6 @@
 using System;
 using UnityEngine;
 
-public class NewWeaponEvent
-{
-    public WeaponBase NewWeapon { get; }
-
-    public NewWeaponEvent(WeaponBase newWeapon)
-    {
-        NewWeapon = newWeapon;
-    }
-}
-
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance { get; private set; }

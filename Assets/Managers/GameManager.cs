@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     
     //The single instance of EventManager for weapons
     public EventManager WeaponEvents{ get; private set; }
+    public EventManager InteractionEvents { get; private set; }
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
 
             //Initialize the EventManager
             WeaponEvents = new EventManager();
+            InteractionEvents = new EventManager();
 
             InitializeDebugUtility();
         }

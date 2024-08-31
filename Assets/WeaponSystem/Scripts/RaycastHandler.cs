@@ -1,10 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class Raycasthandler : MonoBehaviour
+public class Raycasthandler : MonoBehaviour, IEventListener<InteractableEvent>
 {
     public static Raycasthandler Instance { get; private set; }
 
+    private EventManager interactionEvents;
     private LineRenderer lineRenderer;
     private Vector3 _target;
     private Ray _ray;
@@ -15,8 +16,24 @@ public class Raycasthandler : MonoBehaviour
         {
             Instance = this;
         }
+
         lineRenderer = GetComponent<LineRenderer>();
+        interactionEvents = GameManager.Instance.InteractionEvents;
         ConfigureLineRenderer();
+    }
+
+    private void OnEnable()
+    {
+        interactionEvents.Subscribe<InteractableEvent>(OnEvent);
+    }
+    private void OnDisable()
+    {
+        interactionEvents.Unsubscribe<InteractableEvent>(OnEvent);
+    }
+    public void OnEvent(InteractableEvent eventArgs)
+    {
+        lineRenderer.material.color = eventArgs.RaycastColor;
+
     }
 
     private void ConfigureLineRenderer()
@@ -42,7 +59,7 @@ public class Raycasthandler : MonoBehaviour
     private void DrawRay()
     {
         lineRenderer.SetPosition(0, _ray.origin);
-        Debug.DrawRay(_ray.origin, _ray.direction * Vector3.Distance(_ray.origin, _target), Color.red);
         lineRenderer.SetPosition(1, _target);
     }
+
 }
