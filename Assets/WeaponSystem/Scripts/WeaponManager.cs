@@ -99,7 +99,6 @@ public class WeaponManager : MonoBehaviour
 
         //Call an event once eventManager is configured to notify other systems that a weapon has been picked up
         weaponEvents.Publish(new NewWeaponEvent(equippedWeapon));
-        Debug.Log("NewWeaponEvent should be published.");
     }
 
     private void DropWeapon()

@@ -20,14 +20,13 @@ public class InteractionManager : MonoBehaviour, IEventListener<NewWeaponEvent>
     private void OnEnable()
     {
         InputManager.Instance.OnInteract += HandleInteract;
-        weaponEvents.Subscribe<NewWeaponEvent>(OnEvent);
-        Debug.Log($"OnEvent() is subscribed to newWeaponEvent");
+        weaponEvents.Subscribe<NewWeaponEvent>(OnNewWeaponEquipped);
     }
 
     private void OnDisable()
     {
         InputManager.Instance.OnInteract -= HandleInteract;
-        weaponEvents.Unsubscribe<NewWeaponEvent>(OnEvent);
+        weaponEvents.Unsubscribe<NewWeaponEvent>(OnNewWeaponEquipped);
     }
 
     private void Update()
@@ -49,7 +48,7 @@ public class InteractionManager : MonoBehaviour, IEventListener<NewWeaponEvent>
             if (interactable != null && interactable != currentInteractable)
             {
                 currentInteractable = interactable;
-                Debug.Log($"Interactable in Range: {hitInfo.collider.gameObject.name}");
+                DebugUtility.Log(DebugTag.InteractionSystem, $"Interactable in Range: {hitInfo.collider.gameObject.name}");
             }
 
         }
@@ -68,9 +67,11 @@ public class InteractionManager : MonoBehaviour, IEventListener<NewWeaponEvent>
         }
     }
 
-    public void OnEvent(NewWeaponEvent eventArgs)
+    public void OnNewWeaponEquipped(NewWeaponEvent eventArgs)
     {
-            equippedWeapon = eventArgs.NewWeapon;
-            Debug.Log($"New Weapon was picked up: {equippedWeapon}");
+        // Normal event handling logic
+        equippedWeapon = eventArgs.NewWeapon;
+        DebugUtility.Log(DebugTag.InteractionSystem,$"New Weapon Equipped: {eventArgs.NewWeapon.gameObject.name}");
+
     }
 }

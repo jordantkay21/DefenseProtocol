@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IEventListener <TEvent>
 {
-    void OnEvent(TEvent eventArgs);
+    void OnNewWeaponEquipped(TEvent eventArgs);
 }

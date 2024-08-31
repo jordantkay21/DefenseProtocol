@@ -1044,6 +1044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920eb4373e815974fa18b4733f887d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDebugMode: 1
+  enabledDebugTags: 0
 --- !u!1 &1211373718 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8543371635161523177, guid: 535a9229b8b9b6b48b35bbcdf1e50d3f, type: 3}
