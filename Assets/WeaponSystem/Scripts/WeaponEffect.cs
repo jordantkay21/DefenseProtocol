@@ -12,6 +12,11 @@ public class WeaponEffect : MonoBehaviour
     [SerializeField] AudioClip reloadSound;
     [SerializeField] AudioClip emptyClipSound;
 
+    [Header("Impact Effects")]
+    [SerializeField] ParticleSystem impactVis;
+    [SerializeField] GameObject sphereImpact;
+    [SerializeField] int sphereLifetime;
+
     //Event Managers
     EventManager weaponEvents;
 
@@ -35,7 +40,10 @@ public class WeaponEffect : MonoBehaviour
 
     private void ImpactEffect(BulletHitEvent obj)
     {
-        DebugUtility.Log(DebugTag.Bullet, $"Impact Effect method executed");
+        DebugUtility.Log(DebugTag.Bullet, $"Impact Effect method executed. Location: {obj.HitPoint}");
+        Instantiate(sphereImpact, obj.HitPoint, Quaternion.identity);
+        //Destroy(sphere, sphereLifetime);
+
     }
 
     public void PlayMuzzleFlash(Transform muzzleTransform)

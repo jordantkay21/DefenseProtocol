@@ -15,7 +15,7 @@ public class Pistol : WeaponBase
             HandleAmmoConsumption();
 
             Vector3 origin = muzzleTransform.position;
-            Vector3 direction = muzzleTransform.forward;
+            Vector3 direction = (GameManager.Instance.GetCrosshairTarget().position - origin).normalized + CalculateSpread();
             RaycastHit hit;
             Vector3 hitPoint = origin + direction * _range; //default point if no hit occurs
 
