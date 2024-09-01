@@ -26,10 +26,8 @@ public class Pistol : WeaponBase
                 //Instantiate and initialize the bullet
                 BulletBase newBullet = Instantiate(bulletPrefab, origin, Quaternion.LookRotation(direction));
                 newBullet.Initialize(bulletSpeed, bulletDamage);
-
                 //Move the bullet to the hit point
                 newBullet.MoveBulletToHitPoint(hitPoint);
-
                 //Handle the hit logic within the bullet class
                 newBullet.OnHit(hit);
             }
