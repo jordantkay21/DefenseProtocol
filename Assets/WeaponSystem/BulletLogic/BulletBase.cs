@@ -1,14 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-
-public class BulletHitEvent
-{
-    public Vector3 HitPoint { get; private set; }
-    public BulletHitEvent() { }
-    public BulletHitEvent(BulletBase bullet, Vector3 hitPoint) { HitPoint = hitPoint; }
-}
-
 public abstract class BulletBase : MonoBehaviour
 {
     private float _speed;

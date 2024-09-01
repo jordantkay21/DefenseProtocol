@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32931bb1f617c3b41b0c2c01d4909514, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 0
   weaponMountOffset: {x: 0, y: 0, z: 0.785}
   muzzleTransform: {fileID: 1822209772916238222}
   showRaycast: 1
@@ -140,7 +141,7 @@ MonoBehaviour:
   reserveAmmo: 60
   fireRate: 5
   reloadTime: 2
-  _bulletsPerShot: 1
+  _range: 20
 --- !u!114 &4352091265031458341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,9 @@ MonoBehaviour:
   gunfireSound: {fileID: 0}
   reloadSound: {fileID: 0}
   emptyClipSound: {fileID: 0}
+  impactVis: {fileID: 0}
+  sphereImpact: {fileID: 3372930125262266253, guid: b2852bbc761a56d4f9652e4cc6f20076, type: 3}
+  sphereLifetime: 2
 --- !u!82 &2096182086318958330
 AudioSource:
   m_ObjectHideFlags: 0

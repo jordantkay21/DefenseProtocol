@@ -1,12 +1,17 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
-public class Pistol : WeaponBase
+public class MachineGun : WeaponBase
 {
-    [Header("Pistol Settings")]
+    [Header("Machine Gun Settings")]
     [SerializeField] float _range;
 
+    private void Update()
+    {
+        if(isFiring && CanFire())
+        {
+            Fire();
+        }
+    }
     public override void Fire()
     {
         if (CanFire())
@@ -36,13 +41,11 @@ public class Pistol : WeaponBase
                 newBullet.Initialize(bulletSpeed, bulletDamage);
                 newBullet.MoveBulletToHitPoint(hitPoint);
             }
-
-
         }
     }
+
     public override void Reload()
     {
         HandleReloading();
     }
-
 }

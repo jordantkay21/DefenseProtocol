@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+public enum WeaponType
+{
+    Pistol,
+    MachineGun
+}
+
+
 public class WeaponManager : MonoBehaviour
 {
     public static WeaponManager Instance { get; private set; }
@@ -28,7 +35,22 @@ public class WeaponManager : MonoBehaviour
     {
         InputManager.Instance.OnFire += HandleFire;
         InputManager.Instance.OnReload += HandleReload;
+        InputManager.Instance.OnFireStarted += StartFiring;
+        InputManager.Instance.OnFireStopped += StopFiring;
     }
+
+    private void StopFiring()
+    {
+        if (equippedWeapon.weaponType == WeaponType.MachineGun)
+            equippedWeapon?.StopFiring();
+    }
+
+    private void StartFiring()
+    {
+        if (equippedWeapon.weaponType == WeaponType.MachineGun)
+            equippedWeapon?.StartFiring();
+    }
+
     private void OnDisable()
     {
         InputManager.Instance.OnFire -= HandleFire;
@@ -46,7 +68,8 @@ public class WeaponManager : MonoBehaviour
 
     private void HandleFire()
     {
-        equippedWeapon?.Fire();
+        if(equippedWeapon.weaponType != WeaponType.MachineGun)
+            equippedWeapon?.Fire();
     }
 
     private void HandleReload()

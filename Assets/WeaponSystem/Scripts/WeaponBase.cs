@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 {
     [Header("Weapon Configuration")]
+    public WeaponType weaponType;
     public Vector3 weaponMountOffset;
     public Transform muzzleTransform;
     public bool showRaycast = true;
@@ -25,6 +26,7 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
 
     protected bool isReloading = false;
     protected float nextTimeToFire = 0f;
+    protected bool isFiring;
 
     protected EventManager weaponEvents;
     protected Ray weaponRaycast;
@@ -33,6 +35,14 @@ public abstract class WeaponBase : MonoBehaviour, IWeapon, IInteractable
     protected void Awake()
     {
         weaponEvents = GameManager.Instance.WeaponEvents;
+    }
+    public void StartFiring()
+    {
+        isFiring = true;
+    }
+    public void StopFiring()
+    {
+        isFiring = false;
     }
 
     protected Vector3 CalculateSpread()
