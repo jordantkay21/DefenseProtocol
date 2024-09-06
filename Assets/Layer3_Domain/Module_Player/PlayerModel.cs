@@ -1,4 +1,7 @@
-
+/// <summary>
+/// Stores and manages the player's core attributes and state flags.
+/// Provides methods for adjusting player data.
+/// </summary>
 public class PlayerModel 
 {
     #region Variables

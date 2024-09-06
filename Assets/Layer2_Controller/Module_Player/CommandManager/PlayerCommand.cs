@@ -1,16 +1,10 @@
-using UnityEngine;
 
-public class PlayerCommand : MonoBehaviour
+public abstract class PlayerCommand
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// Performs the core action or behavior associated with this command. Use to trigger the main logic or functionality that this command is responsible for.
+    /// </summary>
+    /// <param name="playerModel"></param>
+    /// <param name="playerView"></param>
+    public abstract void Execute(PlayerModel playerModel, PlayerView playerView);
 }
