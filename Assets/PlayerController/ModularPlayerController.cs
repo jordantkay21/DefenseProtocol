@@ -67,7 +67,7 @@ public class ModularPlayerController : PlayerControllerBase
     {
         currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
     }
-
+    
     public override void Crouch()
     {
         isCrouching = !isCrouching;
