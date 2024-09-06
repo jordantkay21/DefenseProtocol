@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class PlayerInputManager : MonoBehaviour
 {
-    public static InputManager Instance { get; private set; }
+    public static PlayerInputManager Instance { get; private set; }
     public PlayerInputActions InputActions { get; private set; }
 
     public event Action<Vector2> OnMove; //Event triggered when movement input is recieved

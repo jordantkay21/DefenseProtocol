@@ -17,20 +17,20 @@ public class ModularPlayerController : PlayerControllerBase
 
     private void OnEnable()
     {
-        InputManager.Instance.OnMove += Move;
-        InputManager.Instance.OnLook += Look;
-        InputManager.Instance.OnJump += Jump;
-        InputManager.Instance.OnSprint += Sprint;
-        InputManager.Instance.OnCrouch += Crouch;
+        PlayerInputManager.Instance.OnMove += Move;
+        PlayerInputManager.Instance.OnLook += Look;
+        PlayerInputManager.Instance.OnJump += Jump;
+        PlayerInputManager.Instance.OnSprint += Sprint;
+        PlayerInputManager.Instance.OnCrouch += Crouch;
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.OnMove -= Move;
-        InputManager.Instance.OnLook -= Look;
-        InputManager.Instance.OnJump -= Jump;
-        InputManager.Instance.OnSprint -= Sprint;
-        InputManager.Instance.OnCrouch -= Crouch;
+        PlayerInputManager.Instance.OnMove -= Move;
+        PlayerInputManager.Instance.OnLook -= Look;
+        PlayerInputManager.Instance.OnJump -= Jump;
+        PlayerInputManager.Instance.OnSprint -= Sprint;
+        PlayerInputManager.Instance.OnCrouch -= Crouch;
     }
 
     private void Start()

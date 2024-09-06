@@ -33,10 +33,10 @@ public class WeaponManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        InputManager.Instance.OnFire += HandleFire;
-        InputManager.Instance.OnReload += HandleReload;
-        InputManager.Instance.OnFireStarted += StartFiring;
-        InputManager.Instance.OnFireStopped += StopFiring;
+        PlayerInputManager.Instance.OnFire += HandleFire;
+        PlayerInputManager.Instance.OnReload += HandleReload;
+        PlayerInputManager.Instance.OnFireStarted += StartFiring;
+        PlayerInputManager.Instance.OnFireStopped += StopFiring;
     }
 
     private void StopFiring()
@@ -53,8 +53,8 @@ public class WeaponManager : MonoBehaviour
 
     private void OnDisable()
     {
-        InputManager.Instance.OnFire -= HandleFire;
-        InputManager.Instance.OnReload -= HandleReload;
+        PlayerInputManager.Instance.OnFire -= HandleFire;
+        PlayerInputManager.Instance.OnReload -= HandleReload;
     }
 
     private void Update()

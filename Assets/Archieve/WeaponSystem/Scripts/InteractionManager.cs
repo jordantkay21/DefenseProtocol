@@ -26,13 +26,13 @@ public class InteractionManager : MonoBehaviour, IEventListener<NewWeaponEvent>
     }
     private void OnEnable()
     {
-        InputManager.Instance.OnInteract += HandleInteract;
+        PlayerInputManager.Instance.OnInteract += HandleInteract;
         weaponEvents.Subscribe<NewWeaponEvent>(OnEvent);
     }
 
     private void OnDisable()
     {
-        InputManager.Instance.OnInteract -= HandleInteract;
+        PlayerInputManager.Instance.OnInteract -= HandleInteract;
         weaponEvents.Unsubscribe<NewWeaponEvent>(OnEvent);
     }
     public void OnEvent(NewWeaponEvent eventArgs)
