@@ -6,9 +6,8 @@ public class PlayerModel
 {
     #region Variables
     //Player Stats
-    public float health;
-    public float walkSpeed;
-    public float sprintSpeed;
+    public int health;
+    public int runMultiplier;
 
     //State Management
     public bool isSprinting;
@@ -23,9 +22,8 @@ public class PlayerModel
     /// </summary>
     public PlayerModel()
     {
-        health = 100f;
-        walkSpeed = 5f;
-        sprintSpeed = 10f;
+        health = 100;
+        runMultiplier = 2;
         isSprinting = false;
         isCrouching = false;
         isJumping = false;
@@ -38,7 +36,7 @@ public class PlayerModel
     /// Deplete players health by damage amount
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)

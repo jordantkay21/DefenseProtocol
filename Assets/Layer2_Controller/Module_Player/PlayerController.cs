@@ -3,6 +3,9 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set;}
+
+
     public PlayerModel playerModel { get; private set; }
     public PlayerView playerView { get; private set; }
 
@@ -10,6 +13,9 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+
         playerView = (PlayerView)FindFirstObjectByType(typeof(PlayerView));
     }
 
@@ -38,4 +44,16 @@ public class PlayerController : MonoBehaviour
     {
         command.Execute(this);
     }
+
+    public IPlayerState RetrieveCurrentState()
+    {
+        return currentState;
+    }
+
+    public int RetrieveHealthStat()
+    {
+        return playerModel.health;
+    }
+
+
 }

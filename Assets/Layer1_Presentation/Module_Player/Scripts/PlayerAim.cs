@@ -8,8 +8,6 @@ public class PlayerAim : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()

@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class DebugManager : MonoBehaviour
 {
     //Singleton instance
-    public static GameManager Instance { get; private set; }
+    public static DebugManager Instance { get; private set; }
 
     [Header("Debug Tools")]
     [SerializeField] bool isDebugMode;    
@@ -47,11 +47,5 @@ public class GameManager : MonoBehaviour
     {
         DebugUtility.IsDebugMode = isDebugMode;
         InitializeDebugUtility();
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
     }
 }
