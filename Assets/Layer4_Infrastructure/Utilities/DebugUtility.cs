@@ -11,11 +11,11 @@ public class EnumFlagsAttribute : PropertyAttribute
 public enum DebugTag
 {
     None = 0,
-    PlayerController = 1 << 0,
-    InteractionSystem = 1 << 1,
-    WeaponSystem = 1 << 2,
-    Pistol = 1 << 3,
-    Bullet = 1 << 4,
+    Module_Player = 1 << 0,
+    Module_Weapon = 1 << 1,
+    Module_Towers = 1 << 2,
+    Module_Enemies = 1 << 3,
+    Component_InputManager = 1 << 4,
     All = ~0 // This enables all flags
 }
 

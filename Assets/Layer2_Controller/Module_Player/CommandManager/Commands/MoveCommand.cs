@@ -1,8 +1,15 @@
-
+using UnityEngine;
 public class MoveCommand : ICommand
 {
-    public void Execute(PlayerModel playerModel, PlayerView playerView)
+    private Vector2 moveInput;
+
+    public MoveCommand(Vector2 input)
     {
-        throw new System.NotImplementedException();
+        moveInput = input;
+    }
+    public void Execute(PlayerController playerController)
+    {
+        playerController.playerView.animator.SetFloat("InputX", moveInput.x);
+        playerController.playerView.animator.SetFloat("InputZ", moveInput.y);
     }
 }

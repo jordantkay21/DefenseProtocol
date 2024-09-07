@@ -6,5 +6,5 @@ public interface ICommand
     /// </summary>
     /// <param name="playerModel"></param>
     /// <param name="playerView"></param>
-    public abstract void Execute(PlayerModel playerModel, PlayerView playerView);
+    public abstract void Execute(PlayerController playerController);
 }

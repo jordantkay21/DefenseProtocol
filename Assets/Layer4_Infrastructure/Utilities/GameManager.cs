@@ -12,13 +12,6 @@ public class GameManager : MonoBehaviour
     [EnumFlags]
     public DebugTag enabledDebugTags;
 
-    [Header("Game Configuration")]
-    [SerializeField] Transform crosshairTarget;
-
-    
-    //The single instance of EventManager for weapons
-    public EventManager WeaponEvents{ get; private set; }
-    public EventManager InteractionEvents { get; private set; }
 
     private void Awake()
     {
@@ -26,10 +19,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist the GameManager across scenes
-
-            //Initialize the EventManager
-            WeaponEvents = new EventManager();
-            InteractionEvents = new EventManager();
 
             InitializeDebugUtility();
         }
@@ -70,10 +59,5 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-    }
-
-    public Transform GetCrosshairTarget()
-    {
-        return crosshairTarget;
     }
 }

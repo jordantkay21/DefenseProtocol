@@ -1,16 +1,41 @@
 using UnityEngine;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public PlayerModel playerModel { get; private set; }
+    public PlayerView playerView { get; private set; }
+
+    private IPlayerState currentState;
+
+    private void Awake()
     {
-        
+        playerView = (PlayerView)FindFirstObjectByType(typeof(PlayerView));
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        DebugUtility.Log(DebugTag.Module_Player, "PlayerController Start");
+        playerModel = new PlayerModel();
+        currentState = new WalkingState();
+        currentState.EnterState(this);
+    }
+
     void Update()
     {
-        
+        //Update current state (state-specific behavior)
+        currentState.UpdateState(this);
+    }
+
+    public void TransitionToState(IPlayerState newState)
+    {
+        currentState.ExitState(this);
+        currentState = newState;
+        newState.EnterState(this);
+    }
+
+    public void ExecuteCommand(ICommand command)
+    {
+        command.Execute(this);
     }
 }

@@ -1,5 +1,5 @@
 
-public interface IState 
+public interface IPlayerState 
 {
     /// <summary>
     /// Called when entering this state. Use to initialize state-specific variables, set up behavior, or trigger animations.

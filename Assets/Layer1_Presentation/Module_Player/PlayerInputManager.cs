@@ -69,5 +69,11 @@ public class PlayerInputManager : MonoBehaviour
     private void SetMoveInput(Vector2 input)
     {
         moveInput = input;
+        DebugUtility.Log(DebugTag.Component_InputManager, $"Movement Input Detected. moveInput = {moveInput}");
+    }
+
+    public Vector2 GetMoveInput()
+    {
+        return moveInput;
     }
 }

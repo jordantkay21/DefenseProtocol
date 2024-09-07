@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController), typeof(Animator))]
 public class PlayerView : MonoBehaviour
 {
-     CharacterController characterController;
-     Animator animator;
+     public CharacterController characterController { get; private set; }
+     public Animator animator { get; private set; }
 
     private void Start()
     {
