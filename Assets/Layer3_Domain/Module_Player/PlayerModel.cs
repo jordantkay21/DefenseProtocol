@@ -15,6 +15,7 @@ public class PlayerModel
     public bool isCrouching;
     public bool isJumping;
     public bool isAttacking;
+
 #endregion
 
     #region Constructors

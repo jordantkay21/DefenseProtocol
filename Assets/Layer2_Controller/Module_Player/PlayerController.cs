@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private ICommand gravityCommand;
     private ICommand aimCommand;
+    private ICommand groundedCommand;
 
 
     private void OnEnable()
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
         playerModel = new PlayerModel();
         currentState = new WalkingState();
         gravityCommand = new GravityCommand();
+        groundedCommand = new GroundedCommand();
         aimCommand = new AimCommand();
         currentState.EnterState(this);
         
@@ -53,18 +55,18 @@ public class PlayerController : MonoBehaviour
     {
         //Update current state (state-specific behavior)
         currentState.UpdateState(this);
+    }
 
+    private void FixedUpdate()
+    {
         // Apply gravity in all states
         ExecuteCommand(gravityCommand);
 
-        //Apply AimCommand to all states EXCEPT
+        //Apply AimCommand to all states 
         ExecuteCommand(aimCommand);
-            
 
-        if (playerView.characterController.isGrounded)
-            playerModel.isGrounded = true;
-        else
-            playerModel.isGrounded = false;
+        //apply GroundedCommand to all states
+        ExecuteCommand(groundedCommand);
     }
 
     public void TransitionToState(IPlayerState newState)
