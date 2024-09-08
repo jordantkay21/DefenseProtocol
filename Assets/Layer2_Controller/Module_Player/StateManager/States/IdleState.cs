@@ -14,11 +14,9 @@ public class IdleState : IPlayerState
         if (PlayerInputManager.Instance.GetMoveInput().sqrMagnitude > 0)
             playerController.TransitionToState(new WalkingState());
 
-        //Check if the player is grounded, if not, transition to FallingState
-        if (!playerController.IsGroundedWithRaycast())
-        {
-            playerController.TransitionToState(new FallingState());
-        }
+        //Handle input to transition to SprintingState
+        if (playerController.playerModel.isSprinting == true && PlayerInputManager.Instance.GetMoveInput() != UnityEngine.Vector2.zero)
+            playerController.TransitionToState(new SprintState());
     }
 
     public void ExitState(PlayerController playerController)

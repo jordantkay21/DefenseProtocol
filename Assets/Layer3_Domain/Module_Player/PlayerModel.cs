@@ -7,7 +7,7 @@ public class PlayerModel
     #region Variables
     //Player Stats
     public int health;
-    public int runMultiplier;
+    public float turnSpeed;
 
     //State Management
     public bool isGrounded;
@@ -24,7 +24,7 @@ public class PlayerModel
     public PlayerModel()
     {
         health = 100;
-        runMultiplier = 2;
+        turnSpeed = 15;
         isGrounded = true;
         isSprinting = false;
         isCrouching = false;

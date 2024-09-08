@@ -5,11 +5,13 @@ public class PlayerView : MonoBehaviour
 {
      public CharacterController characterController { get; private set; }
      public Animator animator { get; private set; }
+    public Camera mainCamera { get; private set; }
 
     private void Start()
     {
         InitializeAnimator();
         characterController = GetComponent<CharacterController>();
+        mainCamera = Camera.main;
     }
 
     #region Component Initilization

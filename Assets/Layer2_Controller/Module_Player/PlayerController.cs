@@ -12,6 +12,23 @@ public class PlayerController : MonoBehaviour
     private IPlayerState currentState;
 
     private ICommand gravityCommand;
+    private ICommand aimCommand;
+
+
+    private void OnEnable()
+    {
+        PlayerInputManager.Instance.OnSprint += IsSprinting;
+    }
+
+    private void OnDisable()
+    {
+        PlayerInputManager.Instance.OnSprint -= IsSprinting;
+    }
+
+    private void IsSprinting(bool isSprinting)
+    {
+        playerModel.isSprinting = isSprinting;
+    }
 
     private void Awake()
     {
@@ -27,6 +44,7 @@ public class PlayerController : MonoBehaviour
         playerModel = new PlayerModel();
         currentState = new WalkingState();
         gravityCommand = new GravityCommand();
+        aimCommand = new AimCommand();
         currentState.EnterState(this);
         
     }
@@ -39,7 +57,11 @@ public class PlayerController : MonoBehaviour
         // Apply gravity in all states
         ExecuteCommand(gravityCommand);
 
-        if (IsGroundedWithRaycast())
+        //Apply AimCommand to all states EXCEPT
+        ExecuteCommand(aimCommand);
+            
+
+        if (playerView.characterController.isGrounded)
             playerModel.isGrounded = true;
         else
             playerModel.isGrounded = false;
@@ -78,7 +100,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGroundedWithRaycast()
     {
-        float distanceToGround = .1f; //Adjust based on your player's height and ground detection 
+        float distanceToGround = .2f; //Adjust based on your player's height and ground detection 
         RaycastHit hit;
         Vector3 localDown = playerView.transform.TransformDirection(Vector3.down);
         Vector3 startPos = playerView.transform.GetChild(0).transform.position;

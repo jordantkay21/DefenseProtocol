@@ -235,6 +235,17 @@
                 },
                 {
                     "name": "",
+                    "id": "fd1be98a-876e-4d86-8b91-40838a883f9a",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "075fcf66-5c19-43d7-b5ad-5dca4d80b118",
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
