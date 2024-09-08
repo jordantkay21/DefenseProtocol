@@ -10,6 +10,7 @@ public class PlayerModel
     public int runMultiplier;
 
     //State Management
+    public bool isGrounded;
     public bool isSprinting;
     public bool isCrouching;
     public bool isJumping;
@@ -24,6 +25,7 @@ public class PlayerModel
     {
         health = 100;
         runMultiplier = 2;
+        isGrounded = true;
         isSprinting = false;
         isCrouching = false;
         isJumping = false;

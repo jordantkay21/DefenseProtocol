@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private IPlayerState currentState;
 
+    private ICommand gravityCommand;
+
     private void Awake()
     {
         if (Instance == null)
@@ -24,13 +26,23 @@ public class PlayerController : MonoBehaviour
         DebugUtility.Log(DebugTag.Module_Player, "PlayerController Start");
         playerModel = new PlayerModel();
         currentState = new WalkingState();
+        gravityCommand = new GravityCommand();
         currentState.EnterState(this);
+        
     }
 
     void Update()
     {
         //Update current state (state-specific behavior)
         currentState.UpdateState(this);
+
+        // Apply gravity in all states
+        ExecuteCommand(gravityCommand);
+
+        if (IsGroundedWithRaycast())
+            playerModel.isGrounded = true;
+        else
+            playerModel.isGrounded = false;
     }
 
     public void TransitionToState(IPlayerState newState)
@@ -45,6 +57,7 @@ public class PlayerController : MonoBehaviour
         command.Execute(this);
     }
 
+    #region MediationMethods
     public IPlayerState RetrieveCurrentState()
     {
         return currentState;
@@ -55,5 +68,30 @@ public class PlayerController : MonoBehaviour
         return playerModel.health;
     }
 
+    public bool RetrieveIsGrounded()
+    {
+        return playerModel.isGrounded;
+    }
+    #endregion
 
+    #region PlayerLogic
+
+    public bool IsGroundedWithRaycast()
+    {
+        float distanceToGround = .1f; //Adjust based on your player's height and ground detection 
+        RaycastHit hit;
+        Vector3 localDown = playerView.transform.TransformDirection(Vector3.down);
+        Vector3 startPos = playerView.transform.GetChild(0).transform.position;
+
+
+        //Visualize the ray in the Scene View
+        Debug.DrawLine(startPos, playerView.transform.position + localDown * 0.1f , Color.red);
+
+        if (Physics.Raycast(startPos, playerView.transform.position + localDown, out hit, distanceToGround))
+            return true;
+        
+        return false;
+    }
+
+    #endregion
 }

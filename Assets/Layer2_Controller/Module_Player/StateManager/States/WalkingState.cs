@@ -13,6 +13,11 @@ public class WalkingState : IPlayerState
 
         if (PlayerInputManager.Instance.GetMoveInput() == Vector2.zero)
             playerController.TransitionToState(new IdleState());
+
+        //Check if the player is grounded, if not, transition to fallState
+        if (!playerController.IsGroundedWithRaycast())
+            playerController.TransitionToState(new FallingState());
+        
     }
 
     public void ExitState(PlayerController playerController)
