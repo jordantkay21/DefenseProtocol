@@ -16,8 +16,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: Root
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -33,7 +31,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: A_Run_FwdStrafeR_RootMotion_Masc
+      name: A_Run_FwdStrafeL_RootMotion_Masc
       takeName: A_Run_FwdStrafeR_RootMotion_Masc
       internalID: 3194471228096159417
       firstFrame: 1
